@@ -2,11 +2,13 @@ package com.sergiubarsa.myfancypdfinvoices.service;
 
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
 import com.sergiubarsa.myfancypdfinvoices.model.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Component
 public class InvoiceService {
 
     private final UserService userService;
