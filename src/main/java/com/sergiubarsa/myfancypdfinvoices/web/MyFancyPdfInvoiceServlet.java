@@ -1,6 +1,7 @@
 package com.sergiubarsa.myfancypdfinvoices.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sergiubarsa.myfancypdfinvoices.context.ApplicationConfiguration;
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
 import com.sergiubarsa.myfancypdfinvoices.service.InvoiceService;
 import com.sergiubarsa.myfancypdfinvoices.service.UserService;
@@ -20,7 +21,7 @@ public class MyFancyPdfInvoiceServlet extends HttpServlet {
 
     @Override
     public void init() {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
         this.userService = ctx.getBean(UserService.class);
         this.objectMapper = ctx.getBean(ObjectMapper.class);
