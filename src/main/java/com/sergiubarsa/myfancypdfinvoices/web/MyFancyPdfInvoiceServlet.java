@@ -22,6 +22,7 @@ public class MyFancyPdfInvoiceServlet extends HttpServlet {
     @Override
     public void init() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        ctx.registerShutdownHook();
 
         this.userService = ctx.getBean(UserService.class);
         this.objectMapper = ctx.getBean(ObjectMapper.class);

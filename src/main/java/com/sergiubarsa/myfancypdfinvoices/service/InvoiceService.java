@@ -2,6 +2,8 @@ package com.sergiubarsa.myfancypdfinvoices.service;
 
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
 import com.sergiubarsa.myfancypdfinvoices.model.User;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -13,6 +15,18 @@ public class InvoiceService {
 
     private final UserService userService;
     private final List<Invoice> invoices = new CopyOnWriteArrayList<>();
+
+
+    @PostConstruct
+    public void init() {
+        System.out.println("testing postconstruct");
+
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        System.out.println("testing predestroy");
+    }
 
     public InvoiceService(UserService userService) {
         this.userService = userService;
