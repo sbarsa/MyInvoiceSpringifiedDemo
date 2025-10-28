@@ -2,10 +2,7 @@ package com.sergiubarsa.myfancypdfinvoices.web;
 
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
 import com.sergiubarsa.myfancypdfinvoices.service.InvoiceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +22,11 @@ public class MyFancyPdfInvoicesController {
 
     @PostMapping("/invoices")
     public Invoice createInvoice(@RequestParam("user_id") String userId, @RequestParam("amount") int amount) {
+        return invoiceService.create(userId, amount);
+    }
+
+    @PostMapping("/invoices/{userId}/{amount}")
+    public Invoice createInvoiceWithPathVariables(@PathVariable("userId") String userId, @PathVariable("amount") int amount) {
         return invoiceService.create(userId, amount);
     }
 }
