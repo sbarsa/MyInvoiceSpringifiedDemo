@@ -3,6 +3,7 @@ package com.sergiubarsa.myfancypdfinvoices.web;
 import com.sergiubarsa.myfancypdfinvoices.dto.InvoiceDto;
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
 import com.sergiubarsa.myfancypdfinvoices.service.InvoiceService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class MyFancyPdfInvoicesController {
     }
 
     @PostMapping("/invoicesdto")
-    public Invoice createInvoiceWithRequestBody(@RequestBody InvoiceDto invoiceDto) {
+    public Invoice createInvoiceWithRequestBody(@RequestBody @Valid InvoiceDto invoiceDto) {
         return invoiceService.create(invoiceDto.getUserId(), invoiceDto.getAmount());
     }
 }
