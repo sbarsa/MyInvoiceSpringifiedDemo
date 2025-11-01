@@ -2,6 +2,7 @@ package com.sergiubarsa.myfancypdfinvoices.web;
 
 import com.sergiubarsa.myfancypdfinvoices.service.InvoiceService;
 import com.sergiubarsa.myfancypdfinvoices.web.forms.LoginForm;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,11 @@ public class InvoicesHtmlController {
     }
 
     @GetMapping("/")
-    public String homepage(Model model, @RequestParam(name="username", required = false, defaultValue = "Stranger") String username) {
+    public String homepage(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            model.addAttribute("username", "Stranger");
+        }
         model.addAttribute("username", username);
         model.addAttribute("currentDate", LocalDateTime.now());
         return "index.html";
@@ -36,9 +41,10 @@ public class InvoicesHtmlController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm loginForm, Model model){
+    public String login(@ModelAttribute LoginForm loginForm, Model model, HttpSession session){
         //for POC purposes, we're assuming that any combinations of username == password are correct
         if (loginForm.getUsername().equals(loginForm.getPassword())) {
+            session.setAttribute("username",loginForm.getUsername());
             return "redirect:/";
         }
         model.addAttribute("invalidCredentials", "true");
