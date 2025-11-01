@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +20,8 @@ public class InvoicesHtmlController {
     }
 
     @GetMapping("/")
-    public String homepage(Model model) {
-        model.addAttribute("username", "John");
+    public String homepage(Model model, @RequestParam(name="username", required = false, defaultValue = "Stranger") String username) {
+        model.addAttribute("username", username);
         model.addAttribute("currentDate", LocalDateTime.now());
         return "index.html";
     }
