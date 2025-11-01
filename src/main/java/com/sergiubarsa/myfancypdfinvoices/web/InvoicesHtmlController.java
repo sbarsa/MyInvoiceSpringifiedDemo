@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDateTime;
 
 @Controller
-@Validated
 public class InvoicesHtmlController {
 
     private final InvoiceService invoiceService;
@@ -52,7 +51,7 @@ public class InvoicesHtmlController {
             session.setAttribute("username", loginForm.getUsername());
             return "redirect:/";
         }
-    
+
         model.addAttribute("invalidCredentials", "true");
         return "login.html";
     }
