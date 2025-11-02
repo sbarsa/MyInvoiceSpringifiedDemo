@@ -12,7 +12,7 @@ public class Invoice {
     private String pdfUrl;
 
     private int amount;
-    
+
     public String getId() {
         return id;
     }

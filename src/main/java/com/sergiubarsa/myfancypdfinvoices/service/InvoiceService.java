@@ -18,7 +18,7 @@ public class InvoiceService {
     private final UserService userService;
     private final String cdnUrl;
     private final List<Invoice> invoices = new CopyOnWriteArrayList<>();
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void init() {
@@ -38,15 +38,7 @@ public class InvoiceService {
     }
 
     public Invoice create(String userId, int amount) {
-        User user = userService.findById(userId);
-        if (user == null) {
-            throw new IllegalStateException();
-        }
-
-        Invoice invoice = new Invoice(userId, amount, cdnUrl + "/images/default/sample.pdf");
-        invoices.add(invoice);
-
-        return invoice;
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public List<Invoice> findAll() {
