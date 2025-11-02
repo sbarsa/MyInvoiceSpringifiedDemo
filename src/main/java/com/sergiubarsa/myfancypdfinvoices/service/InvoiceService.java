@@ -5,6 +5,7 @@ import com.sergiubarsa.myfancypdfinvoices.model.User;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -17,7 +18,7 @@ public class InvoiceService {
     private final UserService userService;
     private final String cdnUrl;
     private final List<Invoice> invoices = new CopyOnWriteArrayList<>();
-
+    private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void init() {
@@ -30,8 +31,9 @@ public class InvoiceService {
         System.out.println("testing predestroy");
     }
 
-    public InvoiceService(UserService userService, @Value("${cdn.url}") String cdnUrl) {
+    public InvoiceService(UserService userService, JdbcTemplate jdbcTemplate, @Value("${cdn.url}") String cdnUrl) {
         this.userService = userService;
+        this.jdbcTemplate = jdbcTemplate;
         this.cdnUrl = cdnUrl;
     }
 
@@ -48,6 +50,14 @@ public class InvoiceService {
     }
 
     public List<Invoice> findAll() {
-        return Collections.unmodifiableList(invoices);
+        String query = "select id, user_id, pdf_url, amount from invoices";
+        jdbcTemplate.query(query, (resultSet, _) -> {
+            Invoice invoice = new Invoice();
+            invoice.setId(resultSet.getObject("id").toString());
+            invoice.setPdfUrl(resultSet.getString("pdf_url"));
+            invoice.setUserId(resultSet.getString("user_id"));
+            invoice.setAmount(resultSet.getInt("amount"));
+            return invoice;
+        });
     }
 }

@@ -2,8 +2,6 @@ package com.sergiubarsa.myfancypdfinvoices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.UUID;
-
 public class Invoice {
     private String id;
 
@@ -14,14 +12,7 @@ public class Invoice {
     private String pdfUrl;
 
     private int amount;
-
-    public Invoice(String userId, int amount, String pdfUrl) {
-        this.id = UUID.randomUUID().toString();
-        this.userId = userId;
-        this.pdfUrl = pdfUrl;
-        this.amount = amount;
-    }
-
+    
     public String getId() {
         return id;
     }
