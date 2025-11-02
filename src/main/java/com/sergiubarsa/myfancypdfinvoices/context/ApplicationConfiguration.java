@@ -61,7 +61,7 @@ public class ApplicationConfiguration {
     @Bean
     public DataSource dataSource() {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:~/myFirstH2Database;INIT=RUNSCRIPT FROM 'classpath.schema.sql'");
+        ds.setURL("jdbc:h2:~/myFirstH2Database;INIT=RUNSCRIPT FROM 'classpath:schema.sql'");
         ds.setUser("sa");
         ds.setPassword("sa");
         return ds;
