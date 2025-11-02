@@ -8,14 +8,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
 public class InvoiceService {
 
     private final UserService userService;
     private final String cdnUrl;
-    private final List<Invoice> invoices = new CopyOnWriteArrayList<>();
     private final JdbcTemplate jdbcTemplate;
 
     @PostConstruct
