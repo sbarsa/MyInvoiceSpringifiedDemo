@@ -1,14 +1,12 @@
 package com.sergiubarsa.myfancypdfinvoices.service;
 
 import com.sergiubarsa.myfancypdfinvoices.model.Invoice;
-import com.sergiubarsa.myfancypdfinvoices.model.User;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -43,7 +41,7 @@ public class InvoiceService {
 
     public List<Invoice> findAll() {
         String query = "select id, user_id, pdf_url, amount from invoices";
-        jdbcTemplate.query(query, (resultSet, _) -> {
+        return jdbcTemplate.query(query, (resultSet, _) -> {
             Invoice invoice = new Invoice();
             invoice.setId(resultSet.getObject("id").toString());
             invoice.setPdfUrl(resultSet.getString("pdf_url"));
